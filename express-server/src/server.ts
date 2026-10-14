@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import "dotenv/config";
 import cors from "cors";
 import { connectDB } from "./config/db";
+import { apiRouter } from "./routes";
 
 const app = express();
 const PORT: number = Number(process.env.PORT) || 3000;
@@ -20,6 +21,8 @@ app.get("/health", (_req: Request, res: Response) => {
     timestamp: new Date().toISOString(),
   });
 });
+
+app.use("/api", apiRouter);
 
 async function main(): Promise<void> {
   await connectDB();
